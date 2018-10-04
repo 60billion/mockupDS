@@ -56,7 +56,7 @@ app.post('/register',function(req,res){
     var name = req.body.name;
     var email = req.body.email;
     var password = req.body.password;
-    var sql = "insert into user ('name','email','password','salt') values(?,?,?,?);";
+    var sql = "insert into user (`name`,`email`,`password`,`salt`) values(?,?,?,?);";
     hasher({password:password},function(err,pass,salt,hash){
         var params = [name,email,hash,salt];
         var userInfo = {email:email,password:password};
