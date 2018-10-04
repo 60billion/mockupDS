@@ -33,3 +33,7 @@ var s3 = new AWS.S3();
 app.get('/',function(req,res){
 	res.send('health test')
 })
+
+app.listen(9000, function(){
+    console.log("connected server!!")
+});
