@@ -42,10 +42,10 @@ app.post('/checkDpl',function(req,res){
     conn.query(sql,function(err,rows,fields){
         console.log(rows);
         console.log(JSON.stringify(rows));
-        if(rows == undefined){
+        if(rows[0] == undefined){
             res.send("allow");
             console.log("allow");
-        }else if(rows){
+        }else{
             res.send("duplicated");
             console.log("duplicated")
         }
