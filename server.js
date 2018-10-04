@@ -43,7 +43,7 @@ app.post('/checkDpl',function(req,res){
         console.log(JSON.stringify(rows));
         if(rows == undefined){
             res.send("allow");
-        }else{
+        }else if(rows){
             res.send("duplicated");
         }
     })
