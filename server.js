@@ -52,10 +52,46 @@ app.post('/checkDpl',function(req,res){
     })
 });
 
-app.post('/test1',function(req,res){
-    var test = req.body.test1;
-    console.log(test);
-})
+app.get('/register',function(req,res){
+    var name = req.body.name;
+    var email = req.body.email;
+    var password = req.body.password;
+    var sql = "insert into user ('name','email','password','salt') values(?,?,?,?);";
+    hasher({password:password},function(err,pass,salt,hash){
+        var params = [name,email,hash,salt];
+        conn.query(sql,params,function(err,rows,fields){
+            console.log("success to register: " + email);
+            jwk.sign(params,"secretkey",function(err,token){
+                if(err){
+                    console.log("Couldn't register and give token to "+email);
+                    res.send({result:"failed"})
+                }else{
+                    console.log("registered and give token for "+ email)
+                    res.send({success:token});
+                }
+            });
+        });
+    });
+});
+
+function verify (req,res,next){
+    const token = req.body.tokens;
+    console.log("verified: "+ token);
+    if(!token || token == undefined){
+        return res.send({
+            login:'login'
+        });
+    }else{
+        jwk.verify(token,'secretkey',(err,code)=>{
+            if(err){
+                console.log("jwk err: "+ err);
+            }else{
+                res.code = code;
+                next();
+            }
+        });
+    }
+}
 
 app.listen(9000, function(){
     console.log("connected server!!")
