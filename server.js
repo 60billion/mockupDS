@@ -61,7 +61,7 @@ app.post('/register',function(req,res){
         var params = [name,email,hash,salt];
         var userInfo = {email:email,password:password};
         conn.query(sql,params,function(err,rows,fields){
-            console.log("success to register: " + email);
+            console.log("success to register: " + rows);
             jwk.sign(userInfo,"secretkey",function(err,token){
                 if(err){
                     console.log("Couldn't register and give token to "+email);
