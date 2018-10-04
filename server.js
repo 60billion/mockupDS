@@ -43,10 +43,10 @@ app.post('/checkDpl',function(req,res){
         console.log(rows);
         console.log(JSON.stringify(rows));
         if(rows[0] == undefined){
-            res.send("allow");
-            console.log("allow");
+            res.send({result:"valid"});
+            console.log("valid");
         }else{
-            res.send("duplicated");
+            res.send({result:"duplicated"});
             console.log("duplicated")
         }
     })
