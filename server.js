@@ -31,8 +31,20 @@ AWS.config.region = 'ap-northeast-2';
 var s3 = new AWS.S3();
 
 app.get('/',function(req,res){
-	res.send('health test')
-})
+	res.send('health test');
+});
+
+app.post('/checkDpl',function(req,res){
+    var email = req.body.email;
+    var sql = `select email from user email = ${email};`;
+    conn.query(sql,function(err,rows,fields){
+        if(rows[0] == undefined){
+            res.send("allow");
+        }else{
+            res.send("duplicated");
+        }
+    })
+});
 
 app.listen(9000, function(){
     console.log("connected server!!")
