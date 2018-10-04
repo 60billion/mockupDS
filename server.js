@@ -40,7 +40,7 @@ app.post('/checkDpl',function(req,res){
     var sql = `select email from user email = ${email};`;
     conn.query(sql,function(err,rows,fields){
         console.log(rows);
-        console.log(json.stringfy(rows));
+        console.log(JSON.stringify(rows));
         if(rows[0] == undefined){
             res.send("allow");
         }else{
