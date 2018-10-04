@@ -49,6 +49,11 @@ app.post('/checkDpl',function(req,res){
     })
 });
 
+app.post('/test1',function(req,res){
+    var test = req.body.test1;
+    console.log(test);
+})
+
 app.listen(9000, function(){
     console.log("connected server!!")
 });
