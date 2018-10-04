@@ -38,7 +38,7 @@ app.post('/checkDpl',function(req,res){
     console.log("working");
     var email = req.body.email;
     console.log(email);
-    var sql = `select email from user where email = ${email};`;
+    var sql = `select email from user where email = "${email}";`;
     conn.query(sql,function(err,rows,fields){
         console.log(rows);
         console.log(JSON.stringify(rows));
