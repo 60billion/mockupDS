@@ -115,7 +115,7 @@ app.post('/login',function(req,res){
                     jwk.sign(params,"secretkey",function(err,token){
                         console.log("publishedToken");
                         res.send({
-                            token:toekn,
+                            token:token,
                             result:"success"
                         });
                     });
