@@ -75,6 +75,52 @@ app.post('/register',function(req,res){
     });
 });
 
+app.post('/likeList',verify,function(req,res){
+    var email = req.code.email;
+    console.log(email);
+    var sql = `select postId from like where userId ='${email}' `;
+    conn.query(sql,function(err,rows,fields){
+        if(err) console.log("Couldn't get rows from likeList router... : " + err);
+        console.log("get result of likeList : " + rows);
+        res.send({result:rows});
+    });
+});
+
+app.post('/login',function(req,res){
+    var email = req.body.email;
+    console.log(email);
+    var password = req.body.password;
+    var sql = `select email,password,salt from user where id = "${email}"; `;
+    conn.query(sql,function(err,rows,fields){
+        if(err)console.log("sql error when check the email valid.");
+        if(rows == undefined){
+            res.send({result:"notMember"});
+            console.log("unknown email...");
+        }else if(rows[0].email == email){
+            console.log("emailMatched");
+            hasher({password:password, salt:rows[0].salt},function(err,pass,salt,hash){
+                if(rows[0].password == hash){
+                    console.log("passwordMatched");
+                    var params = {
+                        email:email,
+                        password:password
+                    };
+                    jwk.sign(params,"secretkey",function(err,token){
+                        console.log("publishedToken");
+                        res.send({
+                            token:toekn,
+                            result:"success"
+                        });
+                    });
+                }else{
+                    console.log("worngPassword");
+                    res.send({result:"worngPassword"});
+                }
+            });
+        }
+    });
+})
+
 function verify (req,res,next){
     const token = req.body.tokens;
     console.log("verified: "+ token);
