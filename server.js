@@ -93,7 +93,7 @@ app.post('/login',function(req,res){
     var email = req.body.email;
     console.log(email);
     var password = req.body.password;
-    var sql = `select email,password,salt from user where id = "${email}"; `;
+    var sql = `select email,password,salt from user where email = "${email}"; `;
     conn.query(sql,function(err,rows,fields){
         if(err)console.log("sql error when check the email valid.");
         if(rows == undefined){
