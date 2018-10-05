@@ -101,7 +101,11 @@ app.post('/login',function(req,res){
             console.log("unknown email...");
         }else if(rows[0].email == email){
             console.log("emailMatched");
+            console.log(rows[0].passowrd);
+            console.log(rows[0].salt);
             hasher({password:password, salt:rows[0].salt},function(err,pass,salt,hash){
+                console.log(password);
+                console.log(hash);
                 if(rows[0].password == hash){
                     console.log("passwordMatched");
                     var params = {
