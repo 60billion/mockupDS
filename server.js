@@ -96,7 +96,7 @@ app.post('/login',function(req,res){
     var sql = `select email,password,salt from user where email = "${email}"; `;
     conn.query(sql,function(err,rows,fields){
         if(err)console.log("sql error when check the email valid.");
-        if(rows == undefined){
+        if(rows[0] == undefined){
             res.send({result:"notMember"});
             console.log("unknown email...");
         }else if(rows[0].email == email){
