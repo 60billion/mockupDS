@@ -59,7 +59,10 @@ app.post('/register',function(req,res){
     var sql = "insert into user (`name`,`email`,`password`,`salt`) values(?,?,?,?);";
     hasher({password:password},function(err,pass,salt,hash){
         var params = [name,email,hash,salt];
-        var userInfo = {email:email,password:password};
+        var userInfo = {
+            email:email,
+            password:password
+        };
         conn.query(sql,params,function(err,rows,fields){
             console.log("success to register: " + rows);
             jwk.sign(userInfo,"secretkey",function(err,token){
@@ -131,9 +134,10 @@ function verify (req,res,next){
     }else{
         jwk.verify(token,'secretkey',(err,code)=>{
             if(err){
-                console.log("jwk err: "+ err);
+                console.log("jwk verify err: "+ err);
             }else{
-                res.code = code;
+                req.code = code;
+                console.log(code);
                 next();
             }
         });
