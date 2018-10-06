@@ -20,6 +20,9 @@ module.exports = function(app){
         password:"11131113",
         database:"mockup"
     });
+    conn.connect(function(){
+        console.log("connected database!!")
+    });
 
     var router = express.Router();
 
