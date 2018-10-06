@@ -7,6 +7,7 @@ module.exports = function(app){
     var pbkfd2Password = require('pbkdf2-password');
     var hasher = pbkfd2Password();
     var jwk = require('jsonwebtoken');
+    var verify = require('../common/verify');
 
     app.use(logger('dev'));
     app.use(bodyparser.json());
@@ -115,28 +116,8 @@ module.exports = function(app){
                 });
             }
         });
-    })
-
-    function verify (req,res,next){
-        const token = req.body.tokens;
-        console.log("verified: "+ token);
-        if(!token || token == undefined){
-            return res.send({
-                login:'login'
-            });
-        }else{
-            jwk.verify(token,'secretkey',(err,code)=>{
-                if(err){
-                    console.log("jwk verify err: "+ err);
-                }else{
-                    req.code = code;
-                    console.log(code);
-                    next();
-                }
-            });
-        }
-    }
-    
+    });
+       
     return router;
 }
 

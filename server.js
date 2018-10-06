@@ -38,25 +38,25 @@ app.get('/',function(req,res){
 	res.send('health test');
 });
 
-function verify (req,res,next){
-    const token = req.body.tokens;
-    console.log("verified: "+ token);
-    if(!token || token == undefined){
-        return res.send({
-            login:'login'
-        });
-    }else{
-        jwk.verify(token,'secretkey',(err,code)=>{
-            if(err){
-                console.log("jwk verify err: "+ err);
-            }else{
-                req.code = code;
-                console.log(code);
-                next();
-            }
-        });
-    }
-}
+// function verify (req,res,next){
+//     const token = req.body.tokens;
+//     console.log("verified: "+ token);
+//     if(!token || token == undefined){
+//         return res.send({
+//             login:'login'
+//         });
+//     }else{
+//         jwk.verify(token,'secretkey',(err,code)=>{
+//             if(err){
+//                 console.log("jwk verify err: "+ err);
+//             }else{
+//                 req.code = code;
+//                 console.log(code);
+//                 next();
+//             }
+//         });
+//     }
+// }
 
 app.listen(9000, function(){
     console.log("connected server!!")
