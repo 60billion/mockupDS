@@ -33,7 +33,7 @@ var s3 = new AWS.S3();
 var user = require('./routes/user.js')(app);
 app.use('/user',user);
 
-var user = require('./routes/main.js')(app);
+var main = require('./routes/main.js')(app);
 app.use('/main',main);
 
 
