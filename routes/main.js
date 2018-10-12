@@ -51,7 +51,7 @@ module.exports = function(app){
                     result:rows[0]
                 });
                 console.log(`sent rows[0] from select * from product where id = ${id}`);
-                console.log(JSON.stringify(rows[0]));
+                console.log(JSON.stringify(rows));
             }
         });
     });
