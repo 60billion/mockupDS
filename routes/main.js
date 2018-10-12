@@ -38,7 +38,7 @@ module.exports = function(app){
     router.post("/getProductInfo",function(req,res){
         console.log("Post/main/getProductInfo");
         var id = req.body.id;
-        consle.log("id : "+ id );
+        console.log("id : "+ id );
         var sql = `select * from product where id = ${id}`;
         conn.query(sql,function(err,rows,fields){
             if(err)console.log(err);
