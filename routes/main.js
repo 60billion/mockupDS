@@ -48,9 +48,9 @@ module.exports = function(app){
                 res.send({failed:"none"});
             }else{
                 res.send({
-                    result:rows[0]
+                    result:rows
                 });
-                console.log(`sent rows[0] from select * from product where id = ${id}`);
+                console.log(`sent rows from select * from product where id = ${id}`);
                 console.log(JSON.stringify(rows));
             }
         });
