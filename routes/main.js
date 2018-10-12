@@ -41,15 +41,18 @@ module.exports = function(app){
         console.log("id : "+ id );
         var sql = `select * from product where id = ${id}`;
         conn.query(sql,function(err,rows,fields){
-            if(err)console.log(err);
-            if(rows[0]==undefined){
+            if(err){
+                console.log(err);
+            }else if(rows[0]==undefined){
                 console.log(`no data from select * from product where id = ${id}`);
                 res.send({failed:"none"});
-            };
-            res.send({
-                result:rows[0]
-            });
-            console.log(`sent rows[0] from select * from product where id = ${id}`);
+            }else{
+                res.send({
+                    result:rows[0]
+                });
+                console.log(`sent rows[0] from select * from product where id = ${id}`);
+                console.log(JSON.stringify(rows[0]));
+            }
         });
     });
 
