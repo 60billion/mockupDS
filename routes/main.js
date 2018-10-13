@@ -63,16 +63,21 @@ module.exports = function(app){
         var sql = `select productId from inf where id = ${infId}`;
         conn.query(sql,function(err,rows,fields){
             console.log("getting productId from inf table.");
-            if(rows[0]==undefined){
+            if(err) {
+                console.log(err);
+                res.send({failed:"failed"});
+            }else if(rows[0]==undefined){
                 res.send({failed:"failed"});
             }else{
                 console.log(JSON.stringify(rows[0].productId));
                 var array = rows[0].productId.split(",");
-                for(var i =0; i<array.length; i ++){
-                    console.log(array[i]);
-                }
+                var sql = `select * from product where id in ${array};`;
+                conn.query(sql,function(err,rows,fields){
+                    console.log(`getting product list from product tabe where id =${array} `);
+                    console.log(JSON.stringify(rows));
+                });
             }
-        })
+        });
     });
 
     return router;
