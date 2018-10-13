@@ -90,6 +90,8 @@ module.exports = function(app){
                     }
                     console.log(even);
                     console.log(odd);
+                    console.log(profileImg);
+                    console.log(name);
                     var result = {
                         even:even,
                         odd:odd,
