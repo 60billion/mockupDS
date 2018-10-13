@@ -77,6 +77,8 @@ module.exports = function(app){
                     console.log(JSON.stringify(rows));
                     var even = [];
                     var odd = [];
+                    var profileImg = rows[0].profileImg;
+                    var name = rows[0].name;
                     for(var i = 0; i < rows.length; i++){
                         if(i%2==0){
                             even.push(rows[i]);
@@ -90,7 +92,9 @@ module.exports = function(app){
                     console.log(odd);
                     var result = {
                         even:even,
-                        odd:odd
+                        odd:odd,
+                        profileImg:profileImg,
+                        name:name
                     }
                     res.send({result:result});
                 });
