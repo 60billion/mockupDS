@@ -67,6 +67,10 @@ module.exports = function(app){
                 res.send({failed:"failed"});
             }else{
                 console.log(JSON.stringify(rows[0].productId));
+                var array = rows[0].productId;
+                for(var i =0; i<array.length; i ++){
+                    console.log(array[i]);
+                }
             }
         })
     });
