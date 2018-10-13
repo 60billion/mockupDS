@@ -80,10 +80,14 @@ module.exports = function(app){
                     for(var i = 0; i < rows.length; i++){
                         if(i%2==0){
                             even.push(rows[i]);
+                            console.log(rows[i]);
                         }else{
                             odd.push(rows[i]);
+                            console.log(rows[i]);
                         }
                     }
+                    console.log(even);
+                    console.log(odd);
                     res.send({even:even,odd:odd});
                 });
             }
