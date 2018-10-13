@@ -75,6 +75,16 @@ module.exports = function(app){
                 conn.query(sql,function(err,rows,fields){
                     console.log(`getting product list from product tabe where id =${array} `);
                     console.log(JSON.stringify(rows));
+                    var even = [];
+                    var odd = [];
+                    for(var i = 0; i < rows.length; i++){
+                        if(i%2==0){
+                            even.push(rows[i]);
+                        }else{
+                            odd.push(rows[i]);
+                        }
+                    }
+                    res.send({even:even,odd:odd});
                 });
             }
         });
