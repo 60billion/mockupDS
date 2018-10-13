@@ -71,7 +71,7 @@ module.exports = function(app){
             }else{
                 console.log(JSON.stringify(rows[0].productId));
                 var array = rows[0].productId.split(",");
-                var sql = `select * from product where id in ${array};`;
+                var sql = `select * from product where id in (${array});`;
                 conn.query(sql,function(err,rows,fields){
                     console.log(`getting product list from product tabe where id =${array} `);
                     console.log(JSON.stringify(rows));
