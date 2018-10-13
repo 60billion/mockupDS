@@ -66,7 +66,7 @@ module.exports = function(app){
             if(rows[0]==undefined){
                 res.send({failed:"failed"});
             }else{
-                console.log(JSON.stringify(rows));
+                console.log(JSON.stringify(rows.productId));
             }
         })
     });
