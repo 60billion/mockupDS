@@ -88,7 +88,11 @@ module.exports = function(app){
                     }
                     console.log(even);
                     console.log(odd);
-                    res.send({even:even,odd:odd});
+                    var result = {
+                        even:even,
+                        odd:odd
+                    }
+                    res.send({result:result});
                 });
             }
         });
