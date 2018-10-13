@@ -56,5 +56,20 @@ module.exports = function(app){
         });
     });
 
+    router.post("/profileList",function(req,res){
+        console.log("Post/main/prodileList");
+        var infId = req.body.id;
+        console.log(infId);
+        var sql = `select productId from inf where id = ${infId}`;
+        conn.query(sql,function(err,rows,fields){
+            console.log("getting productId from inf table.");
+            if(rows[0]==undefined){
+                res.send({failed:"failed"});
+            }else{
+                console.log(JSON.stringify(rows));
+            }
+        })
+    });
+
     return router;
 }
