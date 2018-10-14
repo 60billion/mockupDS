@@ -32,6 +32,11 @@ module.exports = function(app){
             console.log("get result of likeList : " + rows);
             console.log(JSON.stringify(rows));
             res.send({result:rows});
+            var array = [];
+            for(var i = 0; i < rows.length; i++ ){
+                array.push(rows[i],postId);
+            }
+            console.log(array);
         });
     });
 
