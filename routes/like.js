@@ -30,6 +30,7 @@ module.exports = function(app){
         conn.query(sql,function(err,rows,fields){
             if(err) console.log("Couldn't get rows from likeList router... : " + err);
             console.log("get result of likeList : " + rows);
+            console.log(JSON.stringify(rows));
             res.send({result:rows});
         });
     });
