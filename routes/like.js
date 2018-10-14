@@ -36,13 +36,13 @@ module.exports = function(app){
                 console.log("get result of likeList : " + rows);
                 console.log(JSON.stringify(rows));
                 
-                res.send({result:rows});
+                //res.send({result:rows});
                 
                 var array = [];
                 
                 if(rows[0]){
                     for(var i = 0; i < rows.length; i++ ){
-                        array.push(rows[i],postId);
+                        array.push(rows[i].postId);
                     }
                     console.log(array);
                     var result = {
@@ -50,10 +50,10 @@ module.exports = function(app){
                         name:name
                     }
                     res.send({result:result})
-                }else{
+                }else if(rows[0] == undefined){
                     var noLikes = {
                         email:email,
-                        name:name,
+                        name:name
                     };
                     res.send({noLikes:noLikes});
                 }
