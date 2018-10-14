@@ -41,7 +41,7 @@ module.exports = function(app){
         var sql1 = `select * from likelist where userId = "${email}" and postId = "${id}";`;
         var sql2 = `delete from likelist where userId = "${email}" and postId = "${id}"`;
         var sql3 = `delete from productLikes where productId = "${id}" and likeWho = "${email}"`;
-        var sql4 = `insert into likeList (uerId,postId) valuse("${email}","${id}");`;
+        var sql4 = `insert into likeList (uerId,postId) values("${email}","${id}");`;
         var sql5 = `insert into productLikes(productId,likeWho) values("${id}","${email}");`;
         conn.query(sql1,function(err,rows,fields){
             if(rows[0] == undefined){
