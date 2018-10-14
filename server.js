@@ -36,6 +36,9 @@ app.use('/user',user);
 var main = require('./routes/main.js')(app);
 app.use('/main',main);
 
+var like = require('./routes/like.js')(app);
+app.use('/like',like);
+
 
 app.get('/',function(req,res){
 	res.send('health test');
