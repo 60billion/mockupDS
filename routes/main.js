@@ -108,7 +108,7 @@ module.exports = function(app){
     function verify (req,res,next){
         const token = req.body.tokens;
         console.log("verified: "+ token);
-        if(!token || token == undefined){
+        if(token == undefined){
             return res.send({
                 login:'login'
             });
