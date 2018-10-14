@@ -28,24 +28,22 @@ module.exports = function(app){
         console.log(email);
         var sql = `select postId from likelist where userId ='${email}';`;
         var sql1 = `select name  from user where email = '${email}';`;
-        var sql2 = 'select * from product where id in ?;'
         conn.query(sql1, function(err,rows,fields){
             var name = rows[0].name;
             conn.query(sql,function(err,rows,fields){
                 if(err) console.log("Couldn't get rows from likeList router... : " + err);
                 console.log("get result of likeList : " + rows);
                 console.log(JSON.stringify(rows));
-                
-                //res.send({result:rows});
-                
-                
-                
+
                 if(rows[0]){
                     var array = [];
+
                     for(var i = 0; i < rows.length; i++ ){
-                        array.push(rows[i].postId);
+                        array.push(parseInt(rows[i].postId));
                     }
+
                     console.log(array);
+                    var sql2 = `select * from product where id in (${array});`
                     conn.query(sql2,array,function(err,rows,fields){
                         if(err) console.log(err);
                         console.log("got products info");
