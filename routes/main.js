@@ -23,7 +23,7 @@ module.exports = function(app){
 
     var router = express.Router();
 
-    router.post("/getList",verify, function(req,res){
+    router.post("/getList", function(req,res){
         console.log("Post/main/getList")
         var sql = "select * from product;";
         conn.query(sql,function(err,rows,fields){
@@ -35,7 +35,7 @@ module.exports = function(app){
         });
     });
 
-    router.post("/getProductInfo",verify,function(req,res){
+    router.post("/getProductInfo",function(req,res){
         console.log("Post/main/getProductInfo");
         var id = req.body.id;
         console.log("id : "+ id );
@@ -108,7 +108,7 @@ module.exports = function(app){
     function verify (req,res,next){
         const token = req.body.tokens;
         console.log("verified: "+ token);
-        if(token == undefined){
+        if(!token || token == undefined){
             return res.send({
                 login:'login'
             });

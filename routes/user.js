@@ -67,16 +67,6 @@ module.exports = function(app){
         });
     });
     
-    router.post('/likeList',verify,function(req,res){
-        var email = req.code.email;
-        console.log(email);
-        var sql = `select postId from likelist where userId ='${email}' `;
-        conn.query(sql,function(err,rows,fields){
-            if(err) console.log("Couldn't get rows from likeList router... : " + err);
-            console.log("get result of likeList : " + rows);
-            res.send({result:rows});
-        });
-    });
     
     router.post('/login',function(req,res){
         var email = req.body.email;

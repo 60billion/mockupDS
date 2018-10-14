@@ -23,8 +23,19 @@ module.exports = function(app){
 
     var router = express.Router();
 
+    router.post('/likeList',verify,function(req,res){
+        var email = req.code.email;
+        console.log(email);
+        var sql = `select postId from likelist where userId ='${email}' `;
+        conn.query(sql,function(err,rows,fields){
+            if(err) console.log("Couldn't get rows from likeList router... : " + err);
+            console.log("get result of likeList : " + rows);
+            res.send({result:rows});
+        });
+    });
+
     router.post("/likeButton",verify,function(req,res){
-        
+
     });
 
     function verify (req,res,next){
