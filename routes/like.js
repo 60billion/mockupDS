@@ -45,11 +45,14 @@ module.exports = function(app){
                         array.push(rows[i].postId);
                     }
                     console.log(array);
-                    var result = {
-                        email:email,
-                        name:name
-                    }
-                    res.send({result:result})
+                    conn.query(sql2,array,function(err,rows,fields){
+                        var result = {
+                            email:email,
+                            name:name,
+                            info:rows
+                        }
+                        res.send({result:result});
+                    });
                 }else if(rows[0] == undefined){
                     var noLikes = {
                         email:email,
