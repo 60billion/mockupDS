@@ -35,7 +35,51 @@ module.exports = function(app){
     });
 
     router.post("/likeButton",verify,function(req,res){
+        var email = req.code.email;
+        var id = req.body.id;
+        console.log(email, id);
+        var sql1 = `select * from likelist where userId = "${email}" and postId = "${id}";`;
+        var sql2 = `delete from likelist where userId = "${email}" and postId = "${id}"`;
+        var sql3 = `delete from productLikes where productId = "${id}" and likeWho = "${email}"`;
+        var sql4 = `insert into likeList (uerId,postId) valuse("${email}","${id}");`;
+        var sql5 = `insert into productLikes(productId,likeWho) values("${id}","${email}");`;
+        conn.query(sql1,function(err,rows,fields){
+            if(rows[0] == undefined){
+                conn.query(sql4,function(err,rows,fields){
+                    if(err) console.log(err);
+                    console.log("added likelist");
+                    conn.query(sql5,function(err,rows,fields){
+                        if(err) console.lof(err);
+                        console.log("added productLikes");
+                        res.send({added:"added"});
+                    });
+                });
+            }else if(rows[0]){
+                conn.query(sql2,function(err,rows,fields){
+                    if(err) console.log(err);
+                    console.log("deleted likelike row");
+                    conn.query(sql3,function(err,rows,fields){
+                        if(err) console.log(err);
+                        console.log("deleted productLikes row");
+                        res.send({deleted:"deleted"});
+                    })
+                });
+            }
+        });
 
+
+
+
+
+        // conn.query(sql,function(err,rows,fields){
+        //     if(err) console.log(err);
+        //     console.log("uploaded userEmail to likeList")
+        //     conn.query(sql1,function(err,rows,fields){
+        //         if(err) console.log(err);
+        //         console.log("uplodaed productId to productLikes");
+        //         res.send({result:"success"});
+        //     })
+        // });
     });
 
     function verify (req,res,next){
