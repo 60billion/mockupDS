@@ -47,7 +47,8 @@ module.exports = function(app){
                     console.log(array);
                     conn.query(sql2,array,function(err,rows,fields){
                         if(err) console.log(err);
-                        console.log("got products info")
+                        console.log("got products info");
+                        console.log(JSON.stringify(rows));
                         
                         var even = [];
                         var odd = [];
