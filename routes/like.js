@@ -48,10 +48,26 @@ module.exports = function(app){
                     conn.query(sql2,array,function(err,rows,fields){
                         if(err) console.log(err);
                         console.log("got products info")
+                        
+                        var even = [];
+                        var odd = [];
+
+                        for(var i = 0; i < rows.length; i++ ){
+                            if(i%2 == 0 ){
+                                even.push(rows[i]);
+                            }else{
+                                odd.push(rows[i]);
+                            }
+                        }
+
+                        console.log(even);
+                        console.log(odd);
+
                         var result = {
                             email:email,
                             name:name,
-                            info:rows
+                            even:even,
+                            odd:odd
                         }
                         res.send({result:result});
                     });
@@ -101,20 +117,6 @@ module.exports = function(app){
                 });
             }
         });
-
-
-
-
-
-        // conn.query(sql,function(err,rows,fields){
-        //     if(err) console.log(err);
-        //     console.log("uploaded userEmail to likeList")
-        //     conn.query(sql1,function(err,rows,fields){
-        //         if(err) console.log(err);
-        //         console.log("uplodaed productId to productLikes");
-        //         res.send({result:"success"});
-        //     })
-        // });
     });
 
     function verify (req,res,next){
