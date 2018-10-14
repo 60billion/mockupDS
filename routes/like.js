@@ -38,9 +38,10 @@ module.exports = function(app){
                 
                 //res.send({result:rows});
                 
-                var array = [];
+                
                 
                 if(rows[0]){
+                    var array = [];
                     for(var i = 0; i < rows.length; i++ ){
                         array.push(rows[i].postId);
                     }
