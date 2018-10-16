@@ -28,7 +28,7 @@ module.exports = function(app){
         console.log(email);
         console.log("Post/main/getList")
         var sql = "select * from product;";
-        var sql1 = `select postId from likelist where userId = ${email};`;
+        var sql1 = `select postId from likelist where userId = "${email}";`;
         conn.query(sql,function(err,rows,fields){
             conn.query(sql1,function(err1,rows1,fields){
                 if(err) console.log(err1);
