@@ -24,29 +24,43 @@ module.exports = function(app){
     var router = express.Router();
 
     router.post("/getList",verify, function(req,res){
-        var email = req.code.email;
-        console.log(email);
-        console.log("Post/main/getList")
-        var sql = "select * from product;";
-        var sql1 = `select postId from likelist where userId = "${email}";`;
-        conn.query(sql,function(err,rows,fields){
-            conn.query(sql1,function(err1,rows1,fields){
-                if(err) console.log(err1);
-                if(err) console.log(err);
-                for( i in rows){
-                    console.log("loop1");
-                    for( k in rows1){
-                        console.log("loop2");
-                        if(rows[i].id == rows1[k].postId){
-                            rows[i].likeStatus = "true";
+        if(req.code){
+            var email = req.code.email;
+            console.log(email);
+            console.log("Post/main/getList")
+            var sql = "select * from product;";
+            var sql1 = `select postId from likelist where userId = "${email}";`;
+            conn.query(sql,function(err,rows,fields){
+                conn.query(sql1,function(err1,rows1,fields){
+                    if(err) console.log(err1);
+                    if(err) console.log(err);
+                    if(rows1[0] == undefined){
+                        res.send({result:rows});
+                    }else{
+                        for( i in rows){
+                            console.log("loop1");
+                            for( k in rows1){
+                                console.log("loop2");
+                                if(rows[i].id == rows1[k].postId){
+                                    rows[i].likeStatus = "true";
+                                }
+                            }
                         }
+                        res.send({result:rows});
+                        console.log("sent rows from select * from product");
                     }
-                }
-                console.log(rows[0].likeStatus);
-                res.send({result:rows});
-                console.log("sent rows from select * from product");
+                });
             });
-        });
+        }else{
+            var token = req.noToken
+            console.log(token);
+            var sql = "select * from product;";
+            conn.query(sql,function(err,rows,fields){
+                if(err) console.log(err);
+                res.send({result:rows});
+            });
+        }
+
     });
 
     router.post("/getProductInfo",function(req,res){
@@ -123,9 +137,8 @@ module.exports = function(app){
         const token = req.body.tokens;
         console.log("verified: "+ token);
         if(!token || token == undefined){
-            return res.send({
-                login:'login'
-            });
+            req.noToken = "noToken";
+            next();
         }else{
             jwk.verify(token,'secretkey',(err,code)=>{
                 if(err){
