@@ -63,25 +63,59 @@ module.exports = function(app){
 
     });
 
-    router.post("/getProductInfo",function(req,res){
-        console.log("Post/main/getProductInfo");
-        var id = req.body.id;
-        console.log("id : "+ id );
-        var sql = `select * from product where id = ${id}`;
-        conn.query(sql,function(err,rows,fields){
-            if(err){
-                console.log(err);
-            }else if(rows[0]==undefined){
-                console.log(`no data from select * from product where id = ${id}`);
-                res.send({failed:"none"});
-            }else{
-                res.send({
-                    result:rows
+    router.post("/getProductInfo",verify, function(req,res){
+        if(req.noToken){
+            console.log("Post/main/getProductInfo/noToken");
+            var id = req.body.id;
+            console.log("id : "+ id );
+            var sql = `select * from product where id = ${id}`;
+            conn.query(sql,function(err,rows,fields){
+                if(err){
+                    console.log(err);
+                }else if(rows[0]==undefined){
+                    console.log(`no data from select * from product where id = ${id}`);
+                    res.send({failed:"none"});
+                }else{
+                    res.send({
+                        result:rows
+                    });
+                    console.log(`sent rows from select * from product where id = ${id}`);
+                    console.log(JSON.stringify(rows));
+                }
+            });
+        }else{
+            var email = req.code.email;
+            console.log("Post/main/getProductInfo/token");
+            var id = req.body.id;
+            console.log("id : "+ id );
+            var sql = `select * from product where id = ${id}`;
+            var sql1 = `select postId from likelist where userId = "${email}";`;
+            conn.query(sql,function(err,rows,fields){
+                conn.query(sql1, function( err, rows1, fields){
+                    if(err){
+                        console.log(err);
+                    }else if(err1){
+                        console.log(err1);
+                    }else if(rows[0]==undefined){
+                        console.log(`no data from select * from product where id = ${id}`);
+                        res.send({failed:"none"});
+                    }else{
+                        console.log("checking liklist from user")
+                        for(i in rows1){
+                            if(rows[0].id == rows1[i].postId){
+                                rows[0].likeStatus = "true";
+                            }
+                        }
+                        res.send({
+                            result:rows
+                        });
+                        console.log(`sent rows from select * from product where id = ${id}`);
+                        console.log(JSON.stringify(rows));
+                    }
                 });
-                console.log(`sent rows from select * from product where id = ${id}`);
-                console.log(JSON.stringify(rows));
-            }
-        });
+            });
+        }
+
     });
 
     router.post("/profileList",function(req,res){
