@@ -113,7 +113,7 @@ module.exports = function(app){
                         if(err) console.log(err);
                         console.log("deleted productLikes row");
                         res.send({deleted:"deleted"});
-                    })
+                    });
                 });
             }
         });

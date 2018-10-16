@@ -23,15 +23,26 @@ module.exports = function(app){
 
     var router = express.Router();
 
-    router.post("/getList", function(req,res){
+    router.post("/getList",verify, function(req,res){
+        var email = req.code.email;
+        console.log(email);
         console.log("Post/main/getList")
         var sql = "select * from product;";
+        var sql1 = `select postId from likelist where userId = ${email};`;
         conn.query(sql,function(err,rows,fields){
-            if(err) console.log(err);
-            res.send({
-                result:rows
+            conn.query(sql1,function(err1,rows1,fields){
+                if(err) console.log(err1);
+                if(err) console.log(err);
+                for( i in rows){
+                    for( k in rows1){
+                        if(rows[i].id == rows1[k].postId){
+                            rows[i].likeStatus = "true";
+                        }
+                    }
+                }
+                res.send({result:rows});
+                console.log("sent rows from select * from product");
             });
-            console.log("sent rows from select * from product");
         });
     });
 
