@@ -34,12 +34,12 @@ module.exports = function(app){
                 if(err) console.log(err1);
                 if(err) console.log(err);
                 for( i in rows){
-                    console.log(rows[i].id);
-                    console.log(JSON.stringify(rows1))
+                    console.log("loop1");
                     for( k in rows1){
                         console.log("loop2");
                         if(rows[i].id == rows1[k].postId){
                             rows[i].likeStatus = "true";
+                            console.log(rows[i].likeStatus);
                         }
                     }
                 }
