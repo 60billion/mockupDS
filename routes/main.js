@@ -34,7 +34,7 @@ module.exports = function(app){
                 if(err) console.log(err1);
                 if(err) console.log(err);
                 for( i in rows){
-                    console.log("loop1");
+                    console.log(rows[i].id);
                     for( k in rows1){
                         console.log("loop2");
                         if(rows[i].id == rows1[k].postId){
