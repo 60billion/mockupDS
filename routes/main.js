@@ -39,10 +39,10 @@ module.exports = function(app){
                         console.log("loop2");
                         if(rows[i].id == rows1[k].postId){
                             rows[i].likeStatus = "true";
-                            console.log(rows[i].likeStatus);
                         }
                     }
                 }
+                console.log(rows[0].likeStatus);
                 res.send({result:rows});
                 console.log("sent rows from select * from product");
             });
