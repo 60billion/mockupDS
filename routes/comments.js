@@ -26,7 +26,7 @@ module.exports = function(app){
     router.post('/top', verify, function(req,res){
         var email = req.code.email;
         console.log(email);
-        var sql = `select * from user where userId = "${email}"; `;
+        var sql = `select * from user where email = "${email}"; `;
         conn.query(sql,function(err,rows,fields){
             if(err) console.log(err);
             res.send({result:rows[0]});
