@@ -23,7 +23,7 @@ module.exports = function(app){
 
     var router = express.Router();
 
-    router.post('/top', verify, function(req,res){
+    router.post('/verify', verify, function(req,res){
         var email = req.code.email;
         console.log(email);
         var sql = `select * from user where email = "${email}"; `;
