@@ -79,13 +79,14 @@ module.exports = function(app){
         if(req.code){
             var email = req.code.email;
             console.log("UserReply : "+email);
-            var productId = req.body.id;
+            var questId = req.body.qid;
+            var productId = req.body.pid;
             var category = req.body.category;
             var author = req.body.author;
             var password = req.body.password;
             var comment = req.body.comment;
-            var params = [email,productId,category,author,password,comment];
-            var sql = "insert into answ (email,productId,category,name,password,comment) values(?,?,?,?,?,?);";
+            var params = [email,questId,productId,category,author,password,comment];
+            var sql = "insert into answ (email,questId,productId,category,name,password,comment) values(?,?,?,?,?,?,?);";
             console.log(params);
             conn.query(sql,params,function(err,rows,fields){
                 if(err) console.log(err);
@@ -94,13 +95,14 @@ module.exports = function(app){
             });
         }else{
             console.log("noUserReply");
-            var productId = req.body.id;
+            var questId = req.body.qid;
+            var productId = req.body.pid;
             var category = req.body.category;
             var author = req.body.author;
             var password = req.body.password;
             var comment = req.body.comment;
-            var params = [productId,category,author,password,comment];
-            var sql = "insert into answ (productId,category,name,password,comment) values(?,?,?,?,?);";
+            var params = [questId,productId,category,author,password,comment];
+            var sql = "insert into answ (questId,productId,category,name,password,comment) values(?,?,?,?,?,?);";
             console.log(params);
             conn.query(sql,params,function(err,rows,fields){
                 if(err) console.log(err);
