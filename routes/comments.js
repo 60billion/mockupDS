@@ -121,6 +121,8 @@ module.exports = function(app){
             conn.query(sql1,function(err1,rows1,fields){
                 if(err1) console.log(err1);
                 console.log("get answ table");
+                console.log(JSON.stringify(rows));
+                console.log(JSON.stringify(rows1));
                 var comments = {
                     quest: rows,
                     answ:rows1
