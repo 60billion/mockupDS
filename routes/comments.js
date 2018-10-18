@@ -24,22 +24,63 @@ module.exports = function(app){
     var router = express.Router();
 
     router.post('/verify', verify, function(req,res){
-        var email = req.code.email;
+        if(req.code){
+            var email = req.code.email;
         console.log(email);
         var sql = `select * from user where email = "${email}"; `;
         conn.query(sql,function(err,rows,fields){
             if(err) console.log(err);
             res.send({result:rows[0]});
         });
+        }else{
+            res.send({login:"login"});
+        }
+        
+    });
+
+    router.post('/upload',verify,function(req,res){
+        if(req.code){
+            var email = req.code.email;
+            console.log("UserComment : "+email);
+            var productId = req.body.id;
+            var category = req.body.category;
+            var stars = req.body.stars;
+            var author = req.body.author;
+            var password = req.body.password;
+            var comment = req.body.comment;
+            var params = [email,productId,category,stars,author,password,comment];
+            var sql = "insert into quest (email,productId,category,stars,name,password,comment) values(?,?,?,?,?,?,?);";
+            console.log(params);
+            conn.query(sql,params,function(err,rows,fields){
+                if(err) console.log(err);
+                console.log("uploaded comment: "+email);
+                res.send({result:"success"});
+            });
+        }else{
+            console.log("noUserComment");
+            var productId = req.body.id;
+            var category = req.body.category;
+            var stars = req.body.stars;
+            var author = req.body.author;
+            var password = req.body.password;
+            var comment = req.body.comment;
+            var params = [productId,category,stars,author,password,comment];
+            var sql = "insert into quest (productId,category,stars,name,password,comment) values(?,?,?,?,?,?);";
+            console.log(params);
+            conn.query(sql,params,function(err,rows,fields){
+                if(err) console.log(err);
+                console.log("uploaded comment without sinning");
+                res.send({result:"success"});
+            });
+        }
     });
 
     function verify (req,res,next){
         const token = req.body.tokens;
         console.log("verified: "+ token);
         if(!token || token == undefined){
-            return res.send({
-                login:'login'
-            });
+            req.noToken = "noToken";
+            next();
         }else{
             jwk.verify(token,'secretkey',(err,code)=>{
                 if(err){
