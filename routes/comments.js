@@ -110,6 +110,27 @@ module.exports = function(app){
         }
     });
 
+    router.post('/getComments',function(req,res){
+        var productId = req.body.id;
+        console.log(productId);
+        var sql = `select * from quest where productId = "${productId}"; `;
+        var sql1 = `select * from answ where productId = "${productId}"; `;
+        conn.query(sql,function(err,rows,fields){
+            if(err) console.log(err);
+            console.log("get quest table");
+            conn.query(sql1,function(err1,rows1,fields){
+                if(err1) console.log(err1);
+                console.log("get answ table");
+                var comments = {
+                    quest: rows,
+                    answ:rows1
+                }
+                res.send(comments);
+            })
+        });
+
+    });
+
     function verify (req,res,next){
         const token = req.body.tokens;
         console.log("verified: "+ token);
