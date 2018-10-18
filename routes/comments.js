@@ -75,6 +75,41 @@ module.exports = function(app){
         }
     });
 
+    router.post('/reply',verify,function(req,res){
+        if(req.code){
+            var email = req.code.email;
+            console.log("UserReply : "+email);
+            var productId = req.body.id;
+            var category = req.body.category;
+            var author = req.body.author;
+            var password = req.body.password;
+            var comment = req.body.comment;
+            var params = [email,productId,category,stars,author,password,comment];
+            var sql = "insert into answ (email,productId,category,name,password,comment) values(?,?,?,?,?,?);";
+            console.log(params);
+            conn.query(sql,params,function(err,rows,fields){
+                if(err) console.log(err);
+                console.log("uploaded reply: "+email);
+                res.send({result:"success"});
+            });
+        }else{
+            console.log("noUserReply");
+            var productId = req.body.id;
+            var category = req.body.category;
+            var author = req.body.author;
+            var password = req.body.password;
+            var comment = req.body.comment;
+            var params = [productId,category,author,password,comment];
+            var sql = "insert into answ (productId,category,name,password,comment) values(?,?,?,?,?);";
+            console.log(params);
+            conn.query(sql,params,function(err,rows,fields){
+                if(err) console.log(err);
+                console.log("uploaded reply without sinning");
+                res.send({result:"success"});
+            });
+        }
+    });
+
     function verify (req,res,next){
         const token = req.body.tokens;
         console.log("verified: "+ token);
