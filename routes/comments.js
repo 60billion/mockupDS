@@ -84,7 +84,7 @@ module.exports = function(app){
             var author = req.body.author;
             var password = req.body.password;
             var comment = req.body.comment;
-            var params = [email,productId,category,stars,author,password,comment];
+            var params = [email,productId,category,author,password,comment];
             var sql = "insert into answ (email,productId,category,name,password,comment) values(?,?,?,?,?,?);";
             console.log(params);
             conn.query(sql,params,function(err,rows,fields){
