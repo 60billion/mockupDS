@@ -120,14 +120,16 @@ module.exports = function(app){
         var sql = `select * from quest where productId = "${productId}"; `;
         var sql1 = `select * from answ where productId = "${productId}"; `;
         conn.query(sql,function(err,rows,fields){
-            if(err) {
-                console.log(err);
-            }else if(rows[0]==undefined){
-                res.send({noComments:"noComments"});
-            }else{
-                console.log("get quest table");
-                conn.query(sql1,function(err1,rows1,fields){
-                    if(err1) console.log(err1);
+            conn.query(sql1,function(err1,rows1,fields){
+                if(err) {
+                    console.log(err);
+                }else if(err1){
+                    console.log(err1);
+                }else if(rows[0]==undefined && rows1[0] == undefined){
+                    res.send({noComments:"noComments"});
+                }else{
+                    console.log("get quest table");
+                        if(err1) console.log(err1);
                     console.log("get answ table");
                     console.log(JSON.stringify(rows));
                     console.log(JSON.stringify(rows1));
@@ -135,10 +137,9 @@ module.exports = function(app){
                         quest: rows,
                         answ:rows1
                     }
-                    res.send({comments:comments});
-                });
-            }
-
+                    res.send({comments:comments});                
+                }
+            });        
         });
 
     });
