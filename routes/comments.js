@@ -174,6 +174,83 @@ module.exports = function(app){
         }
     });
 
+    router.post('/editQuest',function(req,res){
+        var id = req.body.id;
+        var type = req.body.id;
+        var comment = req.body.comment;
+        var sql = `update ${type} set comment = "${comment}" where id = ${id}; `;
+        console.log(sql);
+        conn.query(sql,function(err,rows,fields){
+            console.log("editQuest");
+            if(err) console.log(err);
+            res.send({result:"result"});
+        });
+    });
+    router.post('/delQuest',function(req,res){
+        var id = req.body.id;
+        var type = req.body.id;
+        var comment = "삭제된 댓글입니다.";
+        var category = "삭제";
+        var sql = `update ${type} set comment = "${comment}", category = "${category}" where id = ${id}; `;
+        console.log(sql);
+        conn.query(sql,function(err,rows,fields){
+            console.log("delQuest");
+            if(err) console.log(err);
+            res.send({result:"result"});
+        });
+    });
+    router.post('/editAnsw',function(req,res){
+        var id = req.body.id;
+        var type = req.body.id;
+        var password = req.body.password;
+        var comment = req.body.comment;
+        var sql = `select password from ${type} where id = ${id};`;
+        var sql1 = `update ${type} set comment = "${comment}" where id = ${id}; `;
+        console.log(sql);
+        console.log(sql1);
+        conn.query(sql,function(err,rows,fields){
+            if(err) console.log(err);
+            console.log("checkingPassword");
+            if(rows[0].password == password){
+                conn.query(sql1,function(err,rows,fields){
+                    if(err) console.log(err);
+                    console.log("editAnsw");
+                    res.send({result:"result"});
+                });
+            }else{
+                console.log("wrong password");
+                res.send({wrong:"wrong"});
+            }
+        });
+    });
+    router.post('/delAnsw',function(req,res){
+        var id = req.body.id;
+        var type = req.body.id;
+        var password = req.body.password;
+        var comment = "삭제된 댓글입니다.";
+        var category = "삭제";
+        var sql = `select password from ${type} where id = ${id};`;
+        var sql1 = `update ${type} set comment = "${comment}", category = "${category}" where id = ${id}; `;
+        console.log(sql);
+        console.log(sql1);
+        conn.query(sql,function(err,rows,fields){
+            if(err) console.log(err);
+            console.log("checkingPassword");
+            if(rows[0].password == password){
+                conn.query(sql1,function(err,rows,fields){
+                    if(err) console.log(err);
+                    console.log("delAnsw");
+                    res.send({result:"result"});
+                });
+            }else{
+                console.log("PasswordWrong");
+                res.send({wrong:"wrong"});
+            }
+
+        });
+
+    });
+
     function verify (req,res,next){
         const token = req.body.tokens;
         console.log("verified: "+ token);
