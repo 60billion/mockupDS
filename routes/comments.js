@@ -144,6 +144,36 @@ module.exports = function(app){
 
     });
 
+    router.post('/edit',verify,function(req,res){
+        if(req.code){
+            var email = req.code.email;
+            console.log("Member checked : "+email);
+            var type = req.body.type;
+            var id = req.body.id;
+            var sql = `select * from ${type} where id = ${id};`;
+            conn.query(sql,function(err,rows,fields){
+                if(err) console.log(err);
+                if(rows[0].email == email){
+                    console.log("matched email : "+JSON.stringify(rows));
+                    res.send({result:rows});
+                }else{
+                    console.log("notMatchedEmail");
+                    res.send({notMatchingEmail:"notMatchingEmail"});
+                }                                
+            });
+        }else{
+            console.log("notMember")
+            var type = req.body.type;
+            var id = req.body.id;
+            var sql = `select * from ${type} where id = ${id};`;
+            conn.query(sql,function(err,rows,fields){
+                if(err) console.log(err);
+                console.log("notMatched : "+JSON.stringify(rows));
+                res.send({result1:rows});
+            });
+        }
+    });
+
     function verify (req,res,next){
         const token = req.body.tokens;
         console.log("verified: "+ token);
