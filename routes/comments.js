@@ -176,7 +176,7 @@ module.exports = function(app){
 
     router.post('/editQuest',function(req,res){
         var id = req.body.id;
-        var type = req.body.id;
+        var type = req.body.type;
         var comment = req.body.comment;
         var sql = `update ${type} set comment = "${comment}" where id = ${id}; `;
         console.log(sql);
@@ -188,7 +188,7 @@ module.exports = function(app){
     });
     router.post('/delQuest',function(req,res){
         var id = req.body.id;
-        var type = req.body.id;
+        var type = req.body.type;
         var comment = "삭제된 댓글입니다.";
         var category = "삭제";
         var sql = `update ${type} set comment = "${comment}", category = "${category}" where id = ${id}; `;
@@ -201,7 +201,7 @@ module.exports = function(app){
     });
     router.post('/editAnsw',function(req,res){
         var id = req.body.id;
-        var type = req.body.id;
+        var type = req.body.type;
         var password = req.body.password;
         var comment = req.body.comment;
         var sql = `select password from ${type} where id = ${id};`;
@@ -225,7 +225,7 @@ module.exports = function(app){
     });
     router.post('/delAnsw',function(req,res){
         var id = req.body.id;
-        var type = req.body.id;
+        var type = req.body.type;
         var password = req.body.password;
         var comment = "삭제된 댓글입니다.";
         var category = "삭제";
