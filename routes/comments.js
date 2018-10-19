@@ -41,6 +41,7 @@ module.exports = function(app){
     router.post('/upload',verify,function(req,res){
         if(req.code){
             var email = req.code.email;
+            var fake = fakeEmail(email);
             console.log("UserComment : "+email);
             var productId = req.body.id;
             var category = req.body.category;
@@ -48,8 +49,8 @@ module.exports = function(app){
             var author = req.body.author;
             var password = req.body.password;
             var comment = req.body.comment;
-            var params = [email,productId,category,stars,author,password,comment];
-            var sql = "insert into quest (email,productId,category,stars,name,password,comment) values(?,?,?,?,?,?,?);";
+            var params = [email,productId,category,stars,author,password,comment,fake];
+            var sql = "insert into quest (email,productId,category,stars,name,password,comment,fake) values(?,?,?,?,?,?,?,?);";
             console.log(params);
             conn.query(sql,params,function(err,rows,fields){
                 if(err) console.log(err);
@@ -78,6 +79,7 @@ module.exports = function(app){
     router.post('/reply',verify,function(req,res){
         if(req.code){
             var email = req.code.email;
+            var fake = fakeEmail(email);
             console.log("UserReply : "+email);
             var questId = req.body.qid;
             var productId = req.body.pid;
@@ -85,8 +87,8 @@ module.exports = function(app){
             var author = req.body.author;
             var password = req.body.password;
             var comment = req.body.comment;
-            var params = [email,questId,productId,category,author,password,comment];
-            var sql = "insert into answ (email,questId,productId,category,name,password,comment) values(?,?,?,?,?,?,?);";
+            var params = [email,questId,productId,category,author,password,comment,fake];
+            var sql = "insert into answ (email,questId,productId,category,name,password,comment,fake) values(?,?,?,?,?,?,?,?);";
             console.log(params);
             conn.query(sql,params,function(err,rows,fields){
                 if(err) console.log(err);
@@ -159,6 +161,18 @@ module.exports = function(app){
             });
         }
     }
+
+    function fakeEmail(str){
+        var fake = "";
+        var array = str.split('');
+        for(var i in array){
+          if(array[i] == "@"){
+            return fake;
+          }else{
+            fake = fake + array[i];
+          }
+        }
+      }
 
     return router;
 }
