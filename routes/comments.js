@@ -118,20 +118,25 @@ module.exports = function(app){
         var sql = `select * from quest where productId = "${productId}"; `;
         var sql1 = `select * from answ where productId = "${productId}"; `;
         conn.query(sql,function(err,rows,fields){
-            if(err) console.log(err);
-            else if(rows[0]==undefined) res.send({noComments:"noComments"});
-            console.log("get quest table");
-            conn.query(sql1,function(err1,rows1,fields){
-                if(err1) console.log(err1);
-                console.log("get answ table");
-                console.log(JSON.stringify(rows));
-                console.log(JSON.stringify(rows1));
-                var comments = {
-                    quest: rows,
-                    answ:rows1
-                }
-                res.send({comments:comments});
-            })
+            if(err) {
+                console.log(err);
+            }else if(rows[0]==undefined){
+                res.send({noComments:"noComments"});
+            }else{
+                console.log("get quest table");
+                conn.query(sql1,function(err1,rows1,fields){
+                    if(err1) console.log(err1);
+                    console.log("get answ table");
+                    console.log(JSON.stringify(rows));
+                    console.log(JSON.stringify(rows1));
+                    var comments = {
+                        quest: rows,
+                        answ:rows1
+                    }
+                    res.send({comments:comments});
+                });
+            }
+
         });
 
     });
