@@ -119,6 +119,7 @@ module.exports = function(app){
         var sql1 = `select * from answ where productId = "${productId}"; `;
         conn.query(sql,function(err,rows,fields){
             if(err) console.log(err);
+            else if(rows[0]==undefined) res.send({noComments:"noComments"});
             console.log("get quest table");
             conn.query(sql1,function(err1,rows1,fields){
                 if(err1) console.log(err1);
@@ -129,7 +130,7 @@ module.exports = function(app){
                     quest: rows,
                     answ:rows1
                 }
-                res.send(comments);
+                res.send({comments:comments});
             })
         });
 
