@@ -129,10 +129,11 @@ module.exports = function(app){
                     res.send({noComments:"noComments"});
                 }else{
                     var total = 0;
-                    var len = rows.length;
+                    var len = 0;
                     for(i in rows){
                         if(rows[i].category == "평가"){
                             total = total + rows[i].stars;
+                            len = len +1;
                         }                    
                     }
                     var avg = total/len;
