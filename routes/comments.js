@@ -131,7 +131,9 @@ module.exports = function(app){
                     var total = 0;
                     var len = rows.length;
                     for(i in rows){
-                        total = total + rows[i].stars;
+                        if(rows[i].category == "평가"){
+                            total = total + rows[i].stars;
+                        }                    
                     }
                     var avg = total/len;
                     var ravg = avg.toFixed(1);
