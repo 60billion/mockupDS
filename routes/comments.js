@@ -128,6 +128,12 @@ module.exports = function(app){
                 }else if(rows[0]==undefined && rows1[0] == undefined){
                     res.send({noComments:"noComments"});
                 }else{
+                    var total;
+                    var len = rows.length
+                    for(i in rows){
+                        total = total + rows[i].stars;
+                    }
+                    var avg = total/len;
                     console.log("get quest table");
                         if(err1) console.log(err1);
                     console.log("get answ table");
@@ -135,7 +141,9 @@ module.exports = function(app){
                     console.log(JSON.stringify(rows1));
                     var comments = {
                         quest: rows,
-                        answ:rows1
+                        answ:rows1,
+                        avg:avg,
+                        len:len
                     }
                     res.send({comments:comments});                
                 }
