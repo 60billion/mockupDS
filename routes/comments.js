@@ -129,7 +129,7 @@ module.exports = function(app){
                     res.send({noComments:"noComments"});
                 }else{
                     var total;
-                    var len = rows.length
+                    var len = rows.length;
                     for(i in rows){
                         total = total + rows[i].stars;
                     }
@@ -142,8 +142,8 @@ module.exports = function(app){
                     var comments = {
                         quest: rows,
                         answ:rows1,
-                        avg:avg,
-                        len:len
+                        avg:avg.toString(),
+                        len:len.toString()
                     }
                     res.send({comments:comments});                
                 }
