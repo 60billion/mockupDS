@@ -193,7 +193,7 @@ module.exports = function(app){
         var category = "삭제";
         var sql = `update ${type} set comment = "${comment}", category = "${category}" where id = ${id}; `;
         var sql1 = `select * from answ where questId = "${id}";`;
-        var sql2 = `delete from quset where id = ${id};`;
+        var sql2 = `delete from quest where id = ${id};`;
         console.log(sql);
         console.log(sql1);
         conn.query(sql1,function(err,rows,fields){
