@@ -139,6 +139,8 @@ module.exports = function(app){
                     console.log("get answ table");
                     console.log(JSON.stringify(rows));
                     console.log(JSON.stringify(rows1));
+                    console.log(avg);
+                    console.log(len);
                     var comments = {
                         quest: rows,
                         answ:rows1,
