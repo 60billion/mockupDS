@@ -134,6 +134,9 @@ module.exports = function(app){
                         total = total + rows[i].stars;
                     }
                     var avg = total/len;
+                    avg.toFixed(1);
+                    avg.toString();
+                    len.toString();
                     console.log("get quest table");
                         if(err1) console.log(err1);
                     console.log("get answ table");
@@ -144,8 +147,8 @@ module.exports = function(app){
                     var comments = {
                         quest: rows,
                         answ:rows1,
-                        avg:avg.toString(),
-                        len:len.toString()
+                        avg:avg,
+                        len:len
                     }
                     res.send({comments:comments});                
                 }
