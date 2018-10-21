@@ -128,7 +128,7 @@ module.exports = function(app){
                 }else if(rows[0]==undefined && rows1[0] == undefined){
                     res.send({noComments:"noComments"});
                 }else{
-                    var total;
+                    var total = 0;
                     var len = rows.length;
                     for(i in rows){
                         total = total + rows[i].stars;
