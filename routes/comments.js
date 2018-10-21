@@ -196,21 +196,29 @@ module.exports = function(app){
         var sql2 = `delete from quest where id = ${id};`;
         console.log(sql);
         console.log(sql1);
-        conn.query(sql1,function(err,rows,fields){
-            if(rows[0] == undefined){
-                conn.query(sql2,function(err,rows,fields){
-                    if(err) console.log(err);
-                    console.log("delQuest: deleted all the row.");
-                    res.send({result:"result"});
-                });
-            }else{
-                conn.query(sql,function(err,rows,fields){
-                    if(err) console.log(err);
-                    console.log("delQuest");
-                    res.send({result:"result"});
-                });
-            }
-        });
+        if(type == "answ"){
+            conn.query(sql,function(err,rows,fields){
+                if(err) console.log(err);
+                console.log("delQuest");
+                res.send({result:"result"});
+            });
+        }else{
+            conn.query(sql1,function(err,rows,fields){
+                if(rows[0] == undefined){
+                    conn.query(sql2,function(err,rows,fields){
+                        if(err) console.log(err);
+                        console.log("delQuest: deleted all the row.");
+                        res.send({result:"result"});
+                    });
+                }else{
+                    conn.query(sql,function(err,rows,fields){
+                        if(err) console.log(err);
+                        console.log("delQuest");
+                        res.send({result:"result"});
+                    });
+                }
+            });
+        }
     });
     router.post('/editAnsw',function(req,res){
         var id = req.body.id;
