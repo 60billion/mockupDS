@@ -58,7 +58,7 @@ module.exports = function(app){
                         productInfo: rows,
                         ItemInfo: rows1
                     }
-                    res.send({result:result1});
+                    res.send({result1:result1});
                     console.log("sent result1");
                 });
             });
