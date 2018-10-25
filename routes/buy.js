@@ -37,7 +37,7 @@ module.exports = function(app){
                 conn.query(sql1,function(err,rows1,fields){
                     if(err) console.log(err);
                     var result = {
-                        productInfo: rows[0],
+                        productInfo: rows,
                         ItemInfo: rows1
                     }
                     res.send({result:result});
@@ -55,7 +55,7 @@ module.exports = function(app){
                 conn.query(sql1,function(err,rows1,fields){
                     if(err) console.log(err);
                     var result1 = {
-                        productInfo: rows[0],
+                        productInfo: rows,
                         ItemInfo: rows1
                     }
                     res.send({result:result1});
