@@ -28,6 +28,7 @@ module.exports = function(app){
         console.log("POST BUTY SELECT ITEM");
         if(req.code){
             var pdId = req.body.id;
+            console.log(pdId);
             var sql = `select * from product where id = ${pdId};`;
             var sql1 = `select * from puchase where productId = ${pdId}`;
             console.log("memberProcess for getting item list");
@@ -45,6 +46,7 @@ module.exports = function(app){
             });
         }else{
             var pdId = req.body.id;
+            console.log(pdId);
             var sql = `select * from product where id = ${pdId};`;
             var sql1 = `select * from puchase where productId = ${pdId}`;
             console.log("noLoginProcess for getting item list");
