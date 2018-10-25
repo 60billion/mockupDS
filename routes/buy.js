@@ -25,6 +25,7 @@ module.exports = function(app){
 
 
     router.post('/selectItem', verify, function(req,res){
+        console.log("POST BUTY SELECT ITEM");
         if(req.code){
             var pdId = req.body.id;
             var sql = `select * from product where id = ${pdId};`;
@@ -39,6 +40,7 @@ module.exports = function(app){
                         ItemInfo: rows1
                     }
                     res.send({result:result});
+                    console.log("sent result");
                 });
             });
         }else{
@@ -55,6 +57,7 @@ module.exports = function(app){
                         ItemInfo: rows1
                     }
                     res.send({result:result1});
+                    console.log("sent result1");
                 });
             });
         }
