@@ -36,6 +36,8 @@ module.exports = function(app){
                 if(err) console.log(err);
                 conn.query(sql1,function(err,rows1,fields){
                     if(err) console.log(err);
+                    console.log(JSON.stringify(rows));
+                    console.log(JSON.stringify(rows1));
                     var result = {
                         productInfo: rows,
                         ItemInfo: rows1
@@ -54,6 +56,8 @@ module.exports = function(app){
                 if(err) console.log(err);
                 conn.query(sql1,function(err,rows1,fields){
                     if(err) console.log(err);
+                    console.log(JSON.stringify(rows));
+                    console.log(JSON.stringify(rows1));
                     var result1 = {
                         productInfo: rows,
                         ItemInfo: rows1
