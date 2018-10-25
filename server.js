@@ -42,6 +42,9 @@ app.use('/like',like);
 var comments = require('./routes/comments.js')(app);
 app.use('/comments',comments);
 
+var buy = require('./routes/buy.js')(app);
+app.use('/buy',buy);
+
 
 app.get('/',function(req,res){
 	res.send('health test');
