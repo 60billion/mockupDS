@@ -29,6 +29,7 @@ module.exports = function(app){
             var pdId = req.body.id;
             var sql = `select * from product where id = ${pdId};`;
             var sql1 = `select * from puchase where productId = ${pdId}`;
+            console.log("memberProcess for getting item list");
             conn.query(sql,function(err,rows,fields){
                 if(err) console.log(err);
                 conn.query(sql1,function(err,rows1,fields){
@@ -44,6 +45,7 @@ module.exports = function(app){
             var pdId = req.body.id;
             var sql = `select * from product where id = ${pdId};`;
             var sql1 = `select * from puchase where productId = ${pdId}`;
+            console.log("noLoginProcess for getting item list");
             conn.query(sql,function(err,rows,fields){
                 if(err) console.log(err);
                 conn.query(sql1,function(err,rows1,fields){
